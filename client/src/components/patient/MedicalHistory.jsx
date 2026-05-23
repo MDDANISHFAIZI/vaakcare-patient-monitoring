@@ -13,7 +13,7 @@ const MedicalHistory = () => {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/records/${user._id}`, {
+        const res = await axios.get(`https://vaakcare-patient-monitoring.onrender.com/api/records/${user._id}`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         setRecords(res.data);
@@ -35,7 +35,7 @@ const MedicalHistory = () => {
     formData.append('file', file);
 
     try {
-      const uploadRes = await axios.post('http://localhost:3001/api/messages/upload', formData, {
+      const uploadRes = await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/messages/upload', formData, {
         headers: { 
           Authorization: `Bearer ${user.token}`,
           'Content-Type': 'multipart/form-data'
@@ -44,7 +44,7 @@ const MedicalHistory = () => {
 
       const fileData = uploadRes.data;
 
-      const recordRes = await axios.post('http://localhost:3001/api/records', {
+      const recordRes = await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/records', {
         patientId: user._id,
         doctorId: user.doctorId,
         type: 'Report',
@@ -126,7 +126,7 @@ const MedicalHistory = () => {
                   <p className="text-sm text-slate-600 dark:text-slate-300 mb-3">{record.description}</p>
                   
                   {record.fileUrl && (
-                    <a href={`http://localhost:3001${record.fileUrl}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-3 py-1.5 rounded-lg hover:bg-brand-100 dark:hover:bg-brand-900/50 transition">
+                    <a href={`https://vaakcare-patient-monitoring.onrender.com${record.fileUrl}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-3 py-1.5 rounded-lg hover:bg-brand-100 dark:hover:bg-brand-900/50 transition">
                       <Download size={14} /> Download {record.type}
                     </a>
                   )}

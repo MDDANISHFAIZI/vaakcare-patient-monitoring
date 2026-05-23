@@ -21,7 +21,7 @@ const LiveChat = ({ patientId, doctorId, currentUserType, contactName, token, on
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/messages/${patientId}`, {
+        const res = await axios.get(`https://vaakcare-patient-monitoring.onrender.com/api/messages/${patientId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setMessages(res.data);
@@ -37,7 +37,7 @@ const LiveChat = ({ patientId, doctorId, currentUserType, contactName, token, on
       }
     };
 
-    const newSocket = io('http://localhost:3001');
+    const newSocket = io('https://vaakcare-patient-monitoring.onrender.com');
     setSocket(newSocket);
 
     newSocket.on('connect', () => {
@@ -106,7 +106,7 @@ const LiveChat = ({ patientId, doctorId, currentUserType, contactName, token, on
       formData.append('file', selectedFile);
       
       try {
-        const uploadRes = await axios.post('http://localhost:3001/api/messages/upload', formData, {
+        const uploadRes = await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/messages/upload', formData, {
           headers: { 
             Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
@@ -189,7 +189,7 @@ const LiveChat = ({ patientId, doctorId, currentUserType, contactName, token, on
                 }`}
               >
                 {msg.fileUrl && (
-                  <a href={`http://localhost:3001${msg.fileUrl}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 mb-2 p-2 bg-black/10 dark:bg-white/10 rounded-lg hover:bg-black/20 transition">
+                  <a href={`https://vaakcare-patient-monitoring.onrender.com${msg.fileUrl}`} target="_blank" rel="noreferrer" className="flex items-center gap-2 mb-2 p-2 bg-black/10 dark:bg-white/10 rounded-lg hover:bg-black/20 transition">
                     <FileText size={16} />
                     <span className="truncate">{msg.fileName || 'Attachment'}</span>
                   </a>

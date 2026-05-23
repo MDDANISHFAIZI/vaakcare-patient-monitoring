@@ -21,7 +21,7 @@ const Appointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/appointments', {
+      const res = await axios.get('https://vaakcare-patient-monitoring.onrender.com/api/appointments', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setAppointments(res.data);
@@ -32,7 +32,7 @@ const Appointments = () => {
 
   const fetchDoctorInfo = async () => {
     try {
-      const res = await axios.get(`http://localhost:3001/api/doctor/${user.doctorId}/status`, {
+      const res = await axios.get(`https://vaakcare-patient-monitoring.onrender.com/api/doctor/${user.doctorId}/status`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setDoctor(res.data);
@@ -97,7 +97,7 @@ const Appointments = () => {
     setBookingError('');
 
     try {
-      await axios.post('http://localhost:3001/api/appointments', {
+      await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/appointments', {
         doctorId: user.doctorId,
         date: selectedDate,
         time: selectedTime,

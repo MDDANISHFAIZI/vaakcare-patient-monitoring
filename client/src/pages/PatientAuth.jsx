@@ -30,7 +30,7 @@ const PatientAuth = () => {
     
     try {
       const endpoint = isLogin ? '/api/auth/patient/login' : '/api/auth/patient/register';
-      const res = await axios.post(`http://localhost:3001${endpoint}`, formData);
+      const res = await axios.post(`https://vaakcare-patient-monitoring.onrender.com${endpoint}`, formData);
       setUser(res.data);
       navigate('/patient/dashboard');
     } catch (err) {

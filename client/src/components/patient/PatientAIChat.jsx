@@ -32,7 +32,7 @@ const PatientAIChat = ({ user, isHindi }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:3001/api/patient/analyze', { text: userMessage.text, medicationTaken }, {
+      const res = await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/patient/analyze', { text: userMessage.text, medicationTaken }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
 

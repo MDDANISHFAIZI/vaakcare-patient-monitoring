@@ -30,7 +30,7 @@ const PaymentCheckout = ({ doctorId, amount = 500, onSuccess, buttonText = "Pay 
       }
 
       // Create order
-      const result = await axios.post('http://localhost:3001/api/payments/create-order', {
+      const result = await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/payments/create-order', {
         doctorId,
         amount
       }, {
@@ -61,7 +61,7 @@ const PaymentCheckout = ({ doctorId, amount = 500, onSuccess, buttonText = "Pay 
           };
 
           try {
-            const verifyResult = await axios.post('http://localhost:3001/api/payments/verify-payment', data, {
+            const verifyResult = await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/payments/verify-payment', data, {
               headers: { Authorization: `Bearer ${user.token}` }
             });
 

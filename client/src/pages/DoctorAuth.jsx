@@ -19,7 +19,7 @@ const DoctorAuth = () => {
     setLoading(true);
     
     try {
-      const res = await axios.post('http://localhost:3001/api/auth/doctor/login', {
+      const res = await axios.post('https://vaakcare-patient-monitoring.onrender.com/api/auth/doctor/login', {
         doctorId, password
       });
       setUser(res.data);

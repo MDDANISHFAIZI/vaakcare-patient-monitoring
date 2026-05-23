@@ -9,7 +9,7 @@ const DoctorLiveStatus = ({ doctorId, token }) => {
     // Fetch initial status
     const fetchStatus = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/doctor/${doctorId}/status`, {
+        const res = await axios.get(`https://vaakcare-patient-monitoring.onrender.com/api/doctor/${doctorId}/status`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setStatus(res.data.status);
@@ -20,7 +20,7 @@ const DoctorLiveStatus = ({ doctorId, token }) => {
     fetchStatus();
 
     // Listen for real-time updates
-    const socket = io('http://localhost:3001');
+    const socket = io('https://vaakcare-patient-monitoring.onrender.com');
     socket.on('doctor-status-changed', (data) => {
       if (data.doctorId === doctorId) {
         setStatus(data.status);

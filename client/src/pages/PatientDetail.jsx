@@ -18,7 +18,7 @@ const PatientDetail = () => {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/doctor/patients/${id}`, {
+        const res = await axios.get(`https://vaakcare-patient-monitoring.onrender.com/api/doctor/patients/${id}`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         setPatient(res.data.patient);

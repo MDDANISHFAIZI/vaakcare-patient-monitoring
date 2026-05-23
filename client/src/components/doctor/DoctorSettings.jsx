@@ -19,7 +19,7 @@ const DoctorSettings = ({ user }) => {
     // Fetch current schedule from doctor profile
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/doctor/${user._id}/status`, {
+        const res = await axios.get(`https://vaakcare-patient-monitoring.onrender.com/api/doctor/${user._id}/status`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         if (res.data.availability) {
@@ -45,7 +45,7 @@ const DoctorSettings = ({ user }) => {
   const handleSave = async () => {
     setSaving(true);
     try {
-      await axios.put('http://localhost:3001/api/doctor/schedule', { availability: schedule }, {
+      await axios.put('https://vaakcare-patient-monitoring.onrender.com/api/doctor/schedule', { availability: schedule }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setMessage('Schedule updated successfully!');

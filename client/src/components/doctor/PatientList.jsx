@@ -13,7 +13,7 @@ const PatientList = ({ user }) => {
 
   const fetchPatients = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/doctor/patients', {
+      const res = await axios.get('https://vaakcare-patient-monitoring.onrender.com/api/doctor/patients', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setPatients(res.data);
@@ -27,7 +27,7 @@ const PatientList = ({ user }) => {
   useEffect(() => {
     fetchPatients();
 
-    const socket = io('http://localhost:3001');
+    const socket = io('https://vaakcare-patient-monitoring.onrender.com');
     socket.emit('join-doctor-room', user._id);
 
     socket.on('new-health-log', (data) => {

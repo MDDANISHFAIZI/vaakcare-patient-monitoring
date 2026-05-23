@@ -29,7 +29,7 @@ const DoctorDashboard = () => {
   // For simplicity, we just use a local state that synchronizes via API
   const handleStatusChange = async (newStatus) => {
     try {
-      await axios.put('http://localhost:3001/api/doctor/status', { status: newStatus }, {
+      await axios.put('https://vaakcare-patient-monitoring.onrender.com/api/doctor/status', { status: newStatus }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setStatus(newStatus);

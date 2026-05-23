@@ -6,8 +6,8 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      "/analyze": "http://localhost:3001",
-      "/health": "http://localhost:3001",
+      "/analyze": "https://vaakcare-patient-monitoring.onrender.com",
+      "/health": "https://vaakcare-patient-monitoring.onrender.com",
     },
   },
 });

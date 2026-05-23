@@ -9,7 +9,7 @@ const PatientHistoryView = ({ patientId, token }) => {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/records/${patientId}`, {
+        const res = await axios.get(`https://vaakcare-patient-monitoring.onrender.com/api/records/${patientId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setRecords(res.data);
@@ -65,7 +65,7 @@ const PatientHistoryView = ({ patientId, token }) => {
                   <p className="text-xs text-slate-600 dark:text-slate-300 mb-2">{record.description}</p>
                   
                   {record.fileUrl && (
-                    <a href={`http://localhost:3001${record.fileUrl}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[10px] font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-2 py-1 rounded hover:bg-brand-100 dark:hover:bg-brand-900/50 transition">
+                    <a href={`https://vaakcare-patient-monitoring.onrender.com${record.fileUrl}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-[10px] font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-2 py-1 rounded hover:bg-brand-100 dark:hover:bg-brand-900/50 transition">
                       <Download size={12} /> Download
                     </a>
                   )}

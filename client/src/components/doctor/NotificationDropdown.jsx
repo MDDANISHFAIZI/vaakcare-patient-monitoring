@@ -13,7 +13,7 @@ const NotificationDropdown = ({ user, userType = 'doctor' }) => {
   useEffect(() => {
     fetchNotifications();
 
-    const socket = io('http://localhost:3001');
+    const socket = io('https://vaakcare-patient-monitoring.onrender.com');
     // Using the same room logic for both doctor and patient
     socket.emit('join-doctor-room', user._id);
 
@@ -33,7 +33,7 @@ const NotificationDropdown = ({ user, userType = 'doctor' }) => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/api/notifications', {
+      const res = await axios.get('https://vaakcare-patient-monitoring.onrender.com/api/notifications', {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setNotifications(res.data);
@@ -46,7 +46,7 @@ const NotificationDropdown = ({ user, userType = 'doctor' }) => {
   const markAsReadAndRedirect = async (notif) => {
     if (!notif.isRead) {
       try {
-        await axios.put(`http://localhost:3001/api/notifications/${notif._id}/read`, {}, {
+        await axios.put(`https://vaakcare-patient-monitoring.onrender.com/api/notifications/${notif._id}/read`, {}, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         setNotifications(notifications.map(n => n._id === notif._id ? { ...n, isRead: true } : n));
@@ -67,7 +67,7 @@ const NotificationDropdown = ({ user, userType = 'doctor' }) => {
 
   const markAllAsRead = async () => {
     try {
-      await axios.put(`http://localhost:3001/api/notifications/read-all`, {}, {
+      await axios.put(`https://vaakcare-patient-monitoring.onrender.com/api/notifications/read-all`, {}, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setNotifications(notifications.map(n => ({ ...n, isRead: true })));

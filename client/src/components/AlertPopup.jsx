@@ -11,7 +11,7 @@ const AlertPopup = () => {
   useEffect(() => {
     if (!user || user.role !== 'doctor') return;
 
-    const socket = io('http://localhost:3001');
+    const socket = io('https://vaakcare-patient-monitoring.onrender.com');
     socket.emit('join-doctor-room', user._id);
 
     socket.on('alert', (data) => {
