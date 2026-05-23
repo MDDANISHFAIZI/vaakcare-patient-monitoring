@@ -14,13 +14,17 @@ const app = express();
 const server = http.createServer(app);
 
 // Enable CORS
-app.use(cors({ origin: '*' }));
+app.use(cors({
+  origin: "https://vaakcare-patient-monitoring.vercel.app",
+  credentials: true
+}))
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // Initialize Socket.io
 const io = new Server(server, {
-  cors: { origin: '*' }
+  cors: { origin: "https://vaakcare-patient-monitoring.vercel.app",
+  credentials: true }
 });
 
 // Store io in app to use in controllers
