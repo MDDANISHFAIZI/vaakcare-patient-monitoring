@@ -13,19 +13,34 @@ connectDB();
 const app = express();
 const server = http.createServer(app);
 
-// Enable CORS
-app.use(cors({
-  origin: "https://vaakcare-patient-monitoring.vercel.app",
+// ====== DYNAMIC CORS CONFIGURATION ======
+const allowedOrigins = [
+  "https://vaakcare-patient-monitoring.vercel.app"
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allows requests with no origin (like mobile apps/Postman), 
+    // or matching our main domain, or any Vercel preview URL (.vercel.app)
+    if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
-}))
+};
+
+// Apply CORS to Express
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
-// Initialize Socket.io
+// Initialize Socket.io with the same dynamic CORS options
 const io = new Server(server, {
-  cors: { origin: "https://vaakcare-patient-monitoring.vercel.app",
-  credentials: true }
+  cors: corsOptions
 });
+// ========================================
 
 // Store io in app to use in controllers
 app.set('io', io);
