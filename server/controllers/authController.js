@@ -36,6 +36,57 @@ const loginDoctor = async (req, res) => {
   }
 };
 
+// @desc    Register a new doctor
+// @route   POST /api/auth/doctor/register
+// @access  Public
+const registerDoctor = async (req, res) => {
+  try {
+    const { name, hospital, specialization, password } = req.body;
+
+    if (!name || !hospital || !specialization || !password) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    // Generate unique doctorId
+    let doctorId;
+    let exists = true;
+    while (exists) {
+      doctorId = 'DOC' + Math.floor(1000 + Math.random() * 9000);
+      const existingDoctor = await Doctor.findOne({ doctorId });
+      if (!existingDoctor) {
+        exists = false;
+      }
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const doctor = await Doctor.create({
+      doctorId,
+      name,
+      hospital,
+      specialization,
+      password: hashedPassword
+    });
+
+    if (doctor) {
+      res.status(201).json({
+        _id: doctor._id,
+        doctorId: doctor.doctorId,
+        name: doctor.name,
+        hospital: doctor.hospital,
+        specialization: doctor.specialization,
+        token: generateToken(doctor._id, 'doctor'),
+        role: 'doctor'
+      });
+    } else {
+      res.status(400).json({ message: 'Invalid doctor data' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+};
+
 // @desc    Register a new patient
 // @route   POST /api/auth/patient/register
 // @access  Public
@@ -105,6 +156,7 @@ const loginPatient = async (req, res) => {
 
 module.exports = {
   loginDoctor,
+  registerDoctor,
   registerPatient,
   loginPatient,
 };
