@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const smsRoutes = require('./routes/smsRoutes');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -34,6 +35,7 @@ const corsOptions = {
 // Apply CORS to Express
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use('/api', smsRoutes);
 app.use('/uploads', express.static('uploads'));
 
 // Initialize Socket.io with the same dynamic CORS options
