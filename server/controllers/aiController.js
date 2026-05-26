@@ -1,4 +1,4 @@
-const { sendSMS } = require("../utils/sendSMS");
+const { sendSMS } = require("../services/twilioService");
 
 const HealthLog = require('../models/HealthLog');
 const Patient = require('../models/Patient');
